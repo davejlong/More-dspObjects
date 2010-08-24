@@ -3,7 +3,7 @@
 	<name>More dspObjects</name>
 	<package>moredspobjects</package>
 	<loadPriority></loadPriority>
-	<version>1.1</version>
+	<version>1.3</version>
 	<provider>David Long</provider>
 	<providerURL>http://www.davejlong.com</providerURL>
 	<category>Display Objects</category>
@@ -12,5 +12,6 @@
 	<DisplayObjects location="global">
 		<displayObject name="Calendar Jump" displayobjectfile="displayObjects/dsp_calendarJump.cfm" />
 		<displayObject name="Search Section Form" displayobjectfile="displayObjects/dsp_searchSection.cfm" />
+		<displayObject name="Page Tools" displayobjectfile="displayObjects/dsp_pageTools.cfm" />
 	</DisplayObjects>
 </plugin>

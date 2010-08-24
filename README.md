@@ -13,6 +13,12 @@ Search Section
 --------------
 A search form that will search within the current section (current page and all sub pages).  The form displays the menu title of the page so that the user knows where they are searching.
 
+Page Tools
+----------
+Gives a couple options available in the User Tools display object for non-logged in users.
+* Print This Page - Allows a user to print the current page
+* Email This Page - Emails a copy of a link to submitted emails
+
 Licensing
 ---------
 Licensing can be found in LICENSE.txt
