@@ -8,7 +8,9 @@
 	<providerURL>http://www.davejlong.com</providerURL>
 	<category>Display Objects</category>
 	<settings />
-	<EventHandlers />
+	<eventHandlers>
+		<eventHandler event="onApplicationLoad" component="eventHandler" persist="true"/>
+	</eventHandlers>
 	<DisplayObjects location="global">
 		<displayObject name="Calendar Jump" displayobjectfile="displayObjects/dsp_calendarJump.cfm" />
 		<displayObject name="Search Section Form" displayobjectfile="displayObjects/dsp_searchSection.cfm" />

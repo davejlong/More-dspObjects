@@ -25,7 +25,6 @@
 				<li>The Body of each Page will be the answer</li>
 				<li>Make sure that your template includes the jQuery framework</li>
 			</ol>
-		
 		</dd>
 	</dl>
 	</cfoutput>
