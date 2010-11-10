@@ -1,2 +1,8 @@
-.project
+*.project
+*.settings
+
+*.DS_Store
 *.zip
+settings.xml
+ehthumbs.db
+thumbs.db
