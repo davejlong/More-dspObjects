@@ -13,5 +13,6 @@
 		<displayObject name="Calendar Jump" displayobjectfile="displayObjects/dsp_calendarJump.cfm" />
 		<displayObject name="Search Section Form" displayobjectfile="displayObjects/dsp_searchSection.cfm" />
 		<displayObject name="Page Tools" displayobjectfile="displayObjects/dsp_pageTools.cfm" />
+		<displayObject name="FAQ Display (jQuery)" displayobjectfile="displayObjects/dsp_faqDisplay.cfm" />
 	</DisplayObjects>
 </plugin>
