@@ -27,7 +27,16 @@
 
 <script type="text/javascript">
 	$('.faqDisplay .multiquestion .question').click(function(){
-		$($(this).parent()).children('dd').slideToggle("slow");
+		$q = $(this).parent();
+		if($q.hasClass('active')){
+			$q.children('dd').slideUp('slow',function(){
+				$q.removeClass('active');
+			});
+		}else{
+			$q.children('dd').slideDown('slow',function(){
+				$q.addClass('active');
+			});
+		}
 	});
 </script>
 </cfoutput>
