@@ -1,10 +1,11 @@
-<!--- File Added by Greg Moser (http://www.gregmoser.com) on 11/10/2010 --->
-<cfparam name="url.categoryID" default="" />
-<cfif url.categoryID neq "">
-	<cfset QuestionsIterator = application.contentManager.getKidsIterator(ParentID='#request.contentBean.getContentID()#',CategoryID='#url.categoryID#',siteid='#request.siteid#') />
-<cfelse>
-	<cfset QuestionsIterator = request.contentBean.getKidsIterator() />
-</cfif>
+<!--- File Updated by Blue River (http://www.getmura.com) on 4/22/2011 --->
+<cfset QuestionsIterator =$.getBean("contentManager").getKidsIterator(
+	parentID=$.content('contentID'),
+	categoryID=$.event('categoryID'),
+	siteid=$.event('siteID'),
+	sortBy=$.content('sortBy'),
+	sortDirection=$.content('sortDirection')
+) />
 
 <cfoutput>
 <div class="faqDisplay">
@@ -13,30 +14,21 @@
 			<cfset Question = QuestionsIterator.next() />
 			<cfset PermLink = Question.getURL() />
 			<dl class="multiquestion">
-				<dt class="question"><span class="QIcon">Q: </span>#Question.getTitle()#</dt>
-				<dd class="answer"><span class="AIcon">A: </span>#Question.getBody()#<div class="permalink"><a href="#PermLink#">Perminent Link To FAQ</a></div></dd>
+				<dt><span class="QIcon">Q:</span> #Question.getTitle()#</dt>
+				<dd><span class="AIcon">A:</span> #Question.getBody()#<div class="permalink"><a href="#PermLink#">Permanent Link To FAQ</a></div></dd>
 			</dl>
 		</cfloop>
 	<cfelse>
 		<dl class="singlequestion">
-			<dt class="question"><span class="QIcon">Q: </span> #request.contentBean.getTitle()#</dt>
-			<dd class="answer"><span class="AIcon">A: </span>#request.contentBean.getBody()#</dd>
+			<dt><span class="QIcon">Q:</span> #$.content('title')#</dt>
+			<dd><span class="AIcon">A:</span> #$.content('body')#</dd>
 		</dl>
 	</cfif>
 </div>
 
 <script type="text/javascript">
-	$('.faqDisplay .multiquestion .question').click(function(){
-		$q = $(this).parent();
-		if($q.hasClass('active')){
-			$q.children('dd').slideUp('slow',function(){
-				$q.removeClass('active');
-			});
-		}else{
-			$q.children('dd').slideDown('slow',function(){
-				$q.addClass('active');
-			});
-		}
+	$('.faqDisplay dt').click(function(){
+		$($(this).parent()).children('dd').slideToggle("500");
 	});
 </script>
 </cfoutput>
