@@ -3,7 +3,7 @@
 	<name>More dspObjects</name>
 	<package>moredspobjects</package>
 	<loadPriority></loadPriority>
-	<version>1.6.9</version>
+	<version>@{version}@.@{buildnumber}@</version>
 	<provider>David Long</provider>
 	<providerURL>http://www.davejlong.com</providerURL>
 	<category>Display Objects</category>

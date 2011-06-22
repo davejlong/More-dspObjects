@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<project name="More dspObjects" default="zip" basedir=".">
+	<propertyfile file="./.ant/build.properties">
+		<entry key="version.buildnumber" type="int" default="0" operation="+" pattern="00" />
+	</propertyfile>
+
+	<property file="./.ant/build.properties" />
+	<property name="sourceDir" location="./" />
+	<property name="buildDir" location="${sourceDir}/build" />
+	<property name="buildsDir" location="${sourceDir}/builds" />
+	<property name="fullversion" value="${version.major}.${version.minor}" /> 
+
+	<target name="zip" depends="version" description="Zips the directory into a file in the builds directory">
+		<!-- Zips the files all into a zip file named for the version number in the builds directory -->
+		<echo message="Zipping contents..." />
+		<zip destfile="${buildsDir}\${version.buildnumber}.zip" basedir="${buildDir}" />
+
+		<echo message="Cleaning everything up" />
+		<delete includeEmptyDirs="true">
+			<fileset dir="${buildDir}" includes="**" />
+		</delete>
+	</target>
+
+	<target name="version" depends="copybuild" description="Adds a major and minor version to the build.">
+		<echo message="Updating build number in /plugin/config.xml" />
+		<replace file="${buildDir}/plugin/config.xml">
+			<replacefilter token="@{version}@" value="${fullversion}" />
+			<replacefilter token="@{buildnumber}@" value="${version.buildnumber}" />
+		</replace>
+	</target>
+
+	<target name="copybuild" description="Copies the current source to the build directory">
+		<echo message="Copying to build directory" />
+		<mkdir dir="${buildDir}" />
+		<copy todir="${buildDir}">
+			<fileset dir="${sourceDir}">
+				<include name="**/css/**" />
+				<include name="**/displayObjects/**" />
+				<include name="**/eventHandlers/**" />
+				<include name="**/plugin/**" />
+				<include name="index.cfm" />
+				<include name="eventHandler.cfc" />
+				<include name="README.md" />
+				<include name="LICENSE.TXT" />
+			</fileset>
+		</copy>
+	</target>
+</project>
