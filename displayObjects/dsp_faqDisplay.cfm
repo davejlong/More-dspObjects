@@ -1,12 +1,22 @@
 <!--- File Updated by Blue River (http://www.getmura.com) on 4/22/2011 --->
-<cfset QuestionsIterator =$.getBean("contentManager").getKidsIterator(
-	parentID=$.content('contentID'),
-	categoryID=$.event('categoryID'),
-	siteid=$.event('siteID'),
-	sortBy=$.content('sortBy'),
-	sortDirection=$.content('sortDirection')
-) />
+<!--- File Updated by David Long (http://www.davejlong.com) on 7/1/2011 --->
+<cfsilent>
+	<cfif len($.event('page'))>
+		<cfset currentPage = $.event('page') />
+	<cfelse>
+		<cfset currentPage = 1 />
+	</cfif>
 
+	<cfset QuestionsIterator =$.getBean("contentManager").getKidsIterator(
+		parentID=$.content('contentID'),
+		categoryID=$.event('categoryID'),
+		siteid=$.event('siteID'),
+		sortBy=$.content('sortBy'),
+		sortDirection=$.content('sortDirection')
+	) />	
+	<cfset QuestionsIterator.setNextN(10) />
+	<cfset QuestionsIterator.setPage(currentPage) />
+</cfsilent>
 <cfoutput>
 <div class="mdo_faqDisplay faqDisplay">
 	<cfif QuestionsIterator.recordcount() gt 0>
@@ -41,6 +51,18 @@
 		<dl class="singlequestion expandable">
 			<dt><span class="QIcon">Q:</span> #$.content('title')#</dt>
 			<dd><span class="AIcon">A:</span> #$.content('body')#</dd>
+		</dl>
+	</cfif>
+	<cfif QuestionsIterator.pageCount() GT 1>
+		<dl class="mdo_paginationContainer">
+			<dt>More Results:</dt>
+			<dl>
+				<ul class="mdo_pagination">
+					<cfloop from="1" to="#QuestionsIterator.pageCount()#" index="loc.pageCounter">
+						<li><cfif NOT loc.pageCounter IS currentPage><a href="?page=#loc.pageCounter#"></cfif>#loc.pageCounter#<cfif NOT loc.pageCounter IS currentPage></a></cfif></li>
+					</cfloop>
+				</ul>
+			</dl>
 		</dl>
 	</cfif>
 </div>

@@ -11,11 +11,16 @@
 <cfsavecontent variable="variables.body">
 	<cfoutput>
 	<h2>#request.pluginConfig.getName()#</h2>
-	<!--- TODO: Implement code... --->
-	<dl>
-		<dt>FAQ Display</dt>
-		<dd>
-			<p>The FAQ Display adds a jQuery enabled display of an FAQ listing.</p> 
+	<div class="tabs">
+		<ul>
+			<li class="first"><a href="##tab_faqs">dspFAQs</a></li>
+			<li><a href="##tab_calJump">dspCalJump</a></li>
+			<li><a href="##tab_sectionSearch">dspSectionSearch</a></li>
+			<li><a href="##tab_gist">dspGist</a></li>
+			<li><a href="##tab_features">dspFeatures</a></li>
+		</ul>
+		<div id="tab_faqs">
+			<p>dspFAQs adds a jQuery enabled display of an FAQ listing.  The page that the object is added to shows a list of questions, and when the question is clicked the answer will slide below the question.</p> 
 			<strong>To Use</strong>
 			<ol>
 				<li>Create a Page in your Site Manager</li>
@@ -25,8 +30,12 @@
 				<li>The Body of each Page will be the answer</li>
 				<li>Make sure that your template includes the jQuery framework</li>
 			</ol>
-		</dd>
-	</dl>
+		</div>
+		<div id="tab_calJump"></div>
+		<div id="tab_sectionSearch"></div>
+		<div id="tab_gist"></div>
+		<div id="tab_features"></div>
+	</div>
 	</cfoutput>
 </cfsavecontent>
 
