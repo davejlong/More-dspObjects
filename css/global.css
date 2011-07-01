@@ -15,5 +15,5 @@
 
 
 
-div.faqDisplay dl.multiquestion dt.question	{cursor:pointer;}
-div.faqDisplay dl.multiquestion dd.answer	{display:none;}
+.mdo_faqDisplay dl.multiquestion dt {cursor:pointer;}
+.mdo_faqDisplay dl.multiquestion dd {display:none;}

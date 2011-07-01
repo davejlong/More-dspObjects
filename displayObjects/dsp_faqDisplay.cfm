@@ -6,19 +6,18 @@
 	<cfelse>
 		<cfset currentPage = 1 />
 	</cfif>
-
+	<cfset $.loadJsLib() />
+	
 	<cfset QuestionsIterator =$.getBean("contentManager").getKidsIterator(
 		parentID=$.content('contentID'),
 		categoryID=$.event('categoryID'),
-		siteid=$.event('siteID'),
-		sortBy=$.content('sortBy'),
-		sortDirection=$.content('sortDirection')
+		siteid=$.event('siteID')
 	) />	
 	<cfset QuestionsIterator.setNextN(10) />
 	<cfset QuestionsIterator.setPage(currentPage) />
 </cfsilent>
 <cfoutput>
-<div class="mdo_faqDisplay faqDisplay">
+<div class="mdo_faqDisplay faqDisplay">Total Records: #QuestionsIterator.recordcount()#
 	<cfif QuestionsIterator.recordcount() gt 0>
 		<cfloop condition="QuestionsIterator.hasNext()">
 			<cfset Question = QuestionsIterator.next() />
@@ -30,22 +29,24 @@
 					sortBy=Question.getSortBy(),
 					sortDirection=Question.getSortDirection()
 				) />
-				<h3 class="faqSectionTitle">#Question.getTitle()#</h3>
-				<cfloop condition="SubQuestionsIterator.hasNext()">
-					<cfset SubQuestion = SubQuestionsIterator.next() />
-					<cfset SubPermLink = SubQuestion.getURL() />
-					<dl class="multiquestion expandable">
-						<dt><span class="QIcon">Q:</span> #SubQuestion.getTitle()#</dt>
-						<dd><span class="AIcon">A:</span> #SubQuestion.getBody()#<div class="permalink"><a href="#SubPermLink#">Permanent Link To FAQ</a></div></dd>
-					</dl>
-				</cfloop>
+				<cfif SubQuestionsIterator.recordCount()>
+					<h3 class="faqSectionTitle">#Question.getTitle()#</h3>
+					<cfloop condition="SubQuestionsIterator.hasNext()">
+						<cfset SubQuestion = SubQuestionsIterator.next() />
+						<cfset SubPermLink = SubQuestion.getURL() />
+						<dl class="multiquestion expandable">
+							<dt><span class="QIcon">Q:</span> #SubQuestion.getTitle()#</dt>
+							<dd><span class="AIcon">A:</span> #SubQuestion.getBody()#<div class="permalink"><a href="#SubPermLink#">Permanent Link To FAQ</a></div></dd>
+						</dl>
+					</cfloop>
+				</cfif>
 			<cfelse>
 				<cfset PermLink = Question.getURL() />
 				<dl class="multiquestion">
 					<dt><span class="QIcon">Q:</span> #Question.getTitle()#</dt>
 					<dd><span class="AIcon">A:</span> #Question.getBody()#<div class="permalink"><a href="#PermLink#">Permanent Link To FAQ</a></div></dd>
 				</dl>
-			</cfif> 
+			</cfif>
 		</cfloop>
 	<cfelse>
 		<dl class="singlequestion expandable">
