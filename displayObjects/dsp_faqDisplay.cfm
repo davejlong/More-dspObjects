@@ -17,37 +17,39 @@
 	<cfset QuestionsIterator.setPage(currentPage) />
 </cfsilent>
 <cfoutput>
-<div class="mdo_faqDisplay faqDisplay">Total Records: #QuestionsIterator.recordcount()#
+<div class="mdo_faqDisplay faqDisplay">
 	<cfif QuestionsIterator.recordcount() gt 0>
-		<cfloop condition="QuestionsIterator.hasNext()">
-			<cfset Question = QuestionsIterator.next() />
-			<cfif Question.getType() eq "Portal">
-				<cfset SubQuestionsIterator =$.getBean("contentManager").getKidsIterator(
-					parentID=Question.getContentID(),
-					categoryID=$.event('categoryID'),
-					siteid=$.event('siteID'),
-					sortBy=Question.getSortBy(),
-					sortDirection=Question.getSortDirection()
-				) />
-				<cfif SubQuestionsIterator.recordCount()>
-					<h3 class="faqSectionTitle">#Question.getTitle()#</h3>
-					<cfloop condition="SubQuestionsIterator.hasNext()">
-						<cfset SubQuestion = SubQuestionsIterator.next() />
-						<cfset SubPermLink = SubQuestion.getURL() />
-						<dl class="multiquestion expandable">
-							<dt><span class="QIcon">Q:</span> #SubQuestion.getTitle()#</dt>
-							<dd><span class="AIcon">A:</span> #SubQuestion.getBody()#<div class="permalink"><a href="#SubPermLink#">Permanent Link To FAQ</a></div></dd>
-						</dl>
-					</cfloop>
-				</cfif>
-			<cfelse>
-				<cfset PermLink = Question.getURL() />
-				<dl class="multiquestion">
+		<dl class="multiquestion">
+			<cfloop condition="QuestionsIterator.hasNext()">
+				<cfset Question = QuestionsIterator.next() />
+				<cfif Question.getType() eq "Portal">
+					<cfset SubQuestionsIterator =$.getBean("contentManager").getKidsIterator(
+						parentID=Question.getContentID(),
+						categoryID=$.event('categoryID'),
+						siteid=$.event('siteID'),
+						sortBy=Question.getSortBy(),
+						sortDirection=Question.getSortDirection()
+					) />
+					<cfif SubQuestionsIterator.recordCount()>
+						<dt class="faqSectionTitle"><h3>#Question.getTitle#</h3></dt>
+						<dd>
+							<cfloop condition="SubQuestionsIterator.hasNext()">
+								<cfset SubQuestion = SubQuestionsIterator.next() />
+								<cfset SubPermLink = SubQuestion.getURL() />
+								<dl class="multiquestion expandable">
+									<dt><span class="QIcon">Q:</span> #SubQuestion.getTitle()#</dt>
+									<dd><span class="AIcon">A:</span> #SubQuestion.getBody()#<div class="permalink"><a href="#SubPermLink#">Permanent Link To FAQ</a></div></dd>
+								</dl>
+							</cfloop>
+						</dd>
+					</cfif>
+				<cfelse>
+					<cfset PermLink = Question.getURL() />
 					<dt><span class="QIcon">Q:</span> #Question.getTitle()#</dt>
 					<dd><span class="AIcon">A:</span> #Question.getBody()#<div class="permalink"><a href="#PermLink#">Permanent Link To FAQ</a></div></dd>
-				</dl>
-			</cfif>
-		</cfloop>
+				</cfif>
+			</cfloop>
+		</dl>
 	<cfelse>
 		<dl class="singlequestion expandable">
 			<dt><span class="QIcon">Q:</span> #$.content('title')#</dt>
@@ -55,13 +57,14 @@
 		</dl>
 	</cfif>
 	<cfif QuestionsIterator.pageCount() GT 1>
-		<dl class="mdo_paginationContainer">
+		<dl class="mdo_paginationContainer moreResults">
 			<dt>More Results:</dt>
 			<dl>
 				<ul class="mdo_pagination">
 					<cfloop from="1" to="#QuestionsIterator.pageCount()#" index="loc.pageCounter">
 						<li><cfif NOT loc.pageCounter IS currentPage><a href="?page=#loc.pageCounter#"></cfif>#loc.pageCounter#<cfif NOT loc.pageCounter IS currentPage></a></cfif></li>
 					</cfloop>
+					
 				</ul>
 			</dl>
 		</dl>
@@ -69,8 +72,10 @@
 </div>
 
 <script type="text/javascript">
-	$('.faqDisplay dt').click(function(){
-		$($(this).parent()).children('dd').slideToggle("500");
+	$('.faqDisplay dt').each(function(){
+		$(this).click(function(){
+			$(this).next('dd').slideToggle("500");
+		});
 	});
 </script>
 </cfoutput>
