@@ -31,28 +31,28 @@
 						sortDirection=Question.getSortDirection()
 					) />
 					<cfif SubQuestionsIterator.recordCount()>
-						<dt class="faqSectionTitle"><h3>#Question.getTitle#</h3></dt>
-						<dd>
+						<dt class="faqSectionTitle clearfix #$.createCSSid(Question.getValue('menuTitle'))#"><h3>#Question.getTitle#</h3></dt>
+						<dd class="#$.createCSSid(SubQuestion.getValue('menuTitle'))# clearfix">
 							<cfloop condition="SubQuestionsIterator.hasNext()">
 								<cfset SubQuestion = SubQuestionsIterator.next() />
 								<cfset SubPermLink = SubQuestion.getURL() />
 								<dl class="multiquestion expandable">
-									<dt><span class="QIcon">Q:</span> #SubQuestion.getTitle()#</dt>
-									<dd><span class="AIcon">A:</span> #SubQuestion.getBody()#<div class="permalink"><a href="#SubPermLink#">Permanent Link To FAQ</a></div></dd>
+									<dt class="#$.createCSSid(SubQuestion.getValue('menuTitle'))# clearfix"><span class="QIcon">Q:</span> #SubQuestion.getTitle()#</dt>
+									<dd class="#$.createCSSid(SubQuestion.getValue('menuTitle'))# clearfix"><span class="AIcon">A:</span> #SubQuestion.getBody()#<div class="permalink"><a href="#SubPermLink#">Permanent Link To FAQ</a></div></dd>
 								</dl>
 							</cfloop>
 						</dd>
 					</cfif>
 				<cfelse>
 					<cfset PermLink = Question.getURL() />
-					<dt><span class="QIcon">Q:</span> #Question.getTitle()#</dt>
-					<dd><span class="AIcon">A:</span> #Question.getBody()#<div class="permalink"><a href="#PermLink#">Permanent Link To FAQ</a></div></dd>
+					<dt class="#$.createCSSid(Question.getValue('menuTitle'))# clearfix"><span class="QIcon">Q:</span> #Question.getTitle()#</dt>
+					<dd class="clearfix"><span class="AIcon">A:</span> #Question.getBody()#<div class="permalink"><a href="#PermLink#">Permanent Link To FAQ</a></div></dd>
 				</cfif>
 			</cfloop>
 		</dl>
 	<cfelse>
 		<dl class="singlequestion expandable">
-			<dt><span class="QIcon">Q:</span> #$.content('title')#</dt>
+			<dt id="#Question.getTopID()#"><span class="QIcon">Q:</span> #$.content('title')#</dt>
 			<dd><span class="AIcon">A:</span> #$.content('body')#</dd>
 		</dl>
 	</cfif>
